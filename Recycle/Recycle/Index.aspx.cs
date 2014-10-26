@@ -3,9 +3,9 @@ using System.Linq;
 using System.IO;
 using System.Xml;
 using System.Net;
-
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Recycle
 {
@@ -20,7 +20,7 @@ namespace Recycle
             else
             {
                 // Connect to the database, get the data
-                string connString = "Data Source=(local);Initial Catalog=dbRecycle;Persist Security Info=True;User ID=daystar;Password=daystar";
+                string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 string query = "select * from tblLocationData";
 
                 SqlConnection conn = new SqlConnection(connString);
@@ -48,6 +48,9 @@ namespace Recycle
             {
                 adrs.GeoCode();
                 //Response.Write(adrs.Latitude + "; " + adrs.Longitude);
+
+                // save to db
+
 
                 // clean the boxes
                 txtAddress.Value = "";
