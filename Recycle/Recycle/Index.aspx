@@ -57,7 +57,7 @@
 
 <form id="Form1" runat="server">
     <div>
-        <table style="text-align: center; width: 1157px;">
+        <table style="text-align: center; width: 1257px;">
              <tr style="align-content:center; width: 100%;">
                  <td style="text-align: center">.::  banner goes here  ::.</td>
              </tr>

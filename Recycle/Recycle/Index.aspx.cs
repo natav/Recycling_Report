@@ -6,6 +6,8 @@ using System.Net;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Net.Mail;
+using VB = Microsoft.VisualBasic;
 
 namespace Recycle
 {
@@ -76,6 +78,11 @@ namespace Recycle
                     connection.Open();
                     command.ExecuteNonQuery();
                     connection.Close();
+              
+                    // send email
+                    string test = ConfigurationManager.AppSettings["MailFrom"];
+                    string strBody = "Bulding Address: " + adrs.FullAddress + Environment.NewLine + "Comment: " + txtComment.Value.Replace("'", @"\'");
+                    SendEmail(ConfigurationManager.AppSettings["MailFrom"].ToString(), ConfigurationManager.AppSettings["MailTo"].ToString(), "", "", "No Recycle Bin Report", strBody);
                 }
                 catch (SqlException)
                 {
@@ -94,7 +101,6 @@ namespace Recycle
 
         }
     
-
     private void BuildScript(DataTable tbl)
         {
             String Locations = "";
@@ -127,7 +133,44 @@ namespace Recycle
                                 }
                             }
                             </script> ";
-        }       
+        }
+
+    public static string SendEmail(string From, string To, string CC, string BCC, string Subject, string Body)
+    {
+        MailMessage message = new MailMessage();
+        message.From = new MailAddress(From);
+        if (To.Contains(";"))
+        {
+            To = VB.Strings.Replace(To, ";", ",");
+        }
+        message.To.Add(To);
+        if (VB.Strings.Len(CC) > 0)
+        {
+            if (CC.Contains(";"))
+            {
+                CC = VB.Strings.Replace(CC, ";", ",");
+            }
+            message.CC.Add(CC);
+        }
+        if (VB.Strings.Len(BCC) > 0)
+        {
+            if (BCC.Contains(";"))
+            {
+                BCC = VB.Strings.Replace(BCC, ";", ",");
+            }
+            message.Bcc.Add(BCC);
+        }
+        message.Subject = Subject;
+        message.Body = Body;
+        string MailServer = "localhost";
+        if (VB.Strings.Len(ConfigurationManager.AppSettings["MailServer"]) > 0)
+        {
+            MailServer = ConfigurationManager.AppSettings["MailServer"].ToString();
+        }
+        SmtpClient emailClient = new SmtpClient(MailServer);
+        emailClient.Send(message);
+        return "OK";
+    }
 }
     public class Address
     {
