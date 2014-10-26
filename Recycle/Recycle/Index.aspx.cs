@@ -98,6 +98,7 @@ namespace Recycle
     private void BuildScript(DataTable tbl)
         {
             String Locations = "";
+
             foreach (DataRow r in tbl.Rows)
             {
                 // bypass empty rows	 	
@@ -106,14 +107,16 @@ namespace Recycle
 
                 string Latitude = r["locLatitude"].ToString();
                 string Longitude = r["locLongitude"].ToString();
-                //string FullAddress = r["locFullAddress"].ToString().Replace("'", @"\'");
+                string FullAddress = r["locFullAddress"].ToString().Replace("'", @"\'");
 
                 // create a line of JavaScript for marker on map for this record 
-                //Locations += Environment.NewLine + " map.addOverlay(new GMarker(new GLatLng(" + Latitude + "," + Longitude + ")),{title:'" + FullAddress + "'});";
+
+                //TODO: marker title doesn't want to work... see below
+                //string markerOptions = ", { title:'" + FullAddress + "' };";
+                //Locations += Environment.NewLine + " map.addOverlay(new GMarker(new GLatLng(" + Latitude + "," + Longitude + "))" + markerOptions + ");";
                 Locations += Environment.NewLine + " map.addOverlay(new GMarker(new GLatLng(" + Latitude + "," + Longitude + ")));";
             }
 
-            // construct the final script
             js.Text = @"<script type='text/javascript'>
                             function initialize() {
                                 if (GBrowserIsCompatible()) {
@@ -121,7 +124,6 @@ namespace Recycle
                                     map.setCenter(new GLatLng(39.5254004, -119.8135266), 12); 
                                     " + Locations + @"
                                     map.setUIToDefault();
-                                    map.panTo(new GLatLng(39.5254004, -119.8135266));
                                 }
                             }
                             </script> ";
