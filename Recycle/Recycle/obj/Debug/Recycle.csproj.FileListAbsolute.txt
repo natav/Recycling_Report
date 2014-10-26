@@ -28,3 +28,4 @@ C:\Development\Hack4Reno\Recycle\Recycle\bin\Microsoft.AspNet.Membership.OpenAut
 C:\Development\Hack4Reno\Recycle\Recycle\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Development\Hack4Reno\Recycle\Recycle\obj\Debug\Recycle.dll
 C:\Development\Hack4Reno\Recycle\Recycle\obj\Debug\Recycle.pdb
+C:\Development\Hack4Reno\Recycle\Recycle\obj\Debug\Recycle.csprojResolveAssemblyReference.cache

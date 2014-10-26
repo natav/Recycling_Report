@@ -17,12 +17,16 @@ namespace Recycle
             {
                 SubmitAddress();
             }
-            else
-            {
-                // Connect to the database, get the data
-                string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                string query = "select * from tblLocationData";
+            GetData();
+        }
 
+        protected void GetData()
+        {
+            // Connect to the database, get the data
+            string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            string query = "select * from tblLocationData";
+            try
+            {
                 SqlConnection conn = new SqlConnection(connString);
                 SqlCommand cmd = new SqlCommand(query, conn);
                 conn.Open();
@@ -34,8 +38,12 @@ namespace Recycle
                 da.Fill(dataTable);
                 conn.Close();
                 da.Dispose();
+                lblCount.InnerText = "Total of " + dataTable.Rows.Count.ToString() + " requests";
                 BuildScript(dataTable);
-
+            }
+            catch (SqlException)
+            {
+                throw new Exception("Error");
             }
 
         }
@@ -49,9 +57,31 @@ namespace Recycle
                 adrs.GeoCode();
                 //Response.Write(adrs.Latitude + "; " + adrs.Longitude);
 
-                // save to db
+                string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
+                SqlConnection connection = new SqlConnection(connString);
 
+                SqlCommand command = new SqlCommand();
+              
+                command.Connection = connection; 
+                command.CommandType = CommandType.Text;
+                command.CommandText = "INSERT into tblLocationData (locFullAddress, locLatitude, locLongitude,locComment) VALUES (@fullAddress, @latitude, @longitude, @comment)";
+                command.Parameters.AddWithValue("fullAddress", adrs.FullAddress);
+                command.Parameters.AddWithValue("@latitude", adrs.Latitude);
+                command.Parameters.AddWithValue("@longitude", adrs.Longitude);
+                command.Parameters.AddWithValue("@comment", txtComment.Value.Replace("'", @"\'"));
+                command.Parameters.AddWithValue("locFlag", 0);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (SqlException)
+                {
+                    throw new Exception("Error");
+                }
+                
                 // clean the boxes
                 txtAddress.Value = "";
                 txtComment.Value = "";
@@ -76,8 +106,10 @@ namespace Recycle
 
                 string Latitude = r["locLatitude"].ToString();
                 string Longitude = r["locLongitude"].ToString();
+                //string FullAddress = r["locFullAddress"].ToString().Replace("'", @"\'");
 
-                // create a line of JavaScript for marker on map for this record	
+                // create a line of JavaScript for marker on map for this record 
+                //Locations += Environment.NewLine + " map.addOverlay(new GMarker(new GLatLng(" + Latitude + "," + Longitude + ")),{title:'" + FullAddress + "'});";
                 Locations += Environment.NewLine + " map.addOverlay(new GMarker(new GLatLng(" + Latitude + "," + Longitude + ")));";
             }
 

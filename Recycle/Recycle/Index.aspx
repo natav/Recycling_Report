@@ -70,7 +70,7 @@
                 <div style="vertical-align: top;">
                     <table>
                         <tr>
-                            <td colspan="2"><span>Report NO recycling in your building</span></td>
+                            <td colspan="2"><label>Report NO recycling in your building</label></td>
                         </tr>
                         <tr>
                             <td><span>Enter your address: </span></td>
@@ -90,6 +90,7 @@
             <td style="width:65%;">
                 <asp:Literal ID="js" runat="server"></asp:Literal>
                 <div id="map_canvas" style="width: 100%; height: 728px; margin-bottom:2px;"></div>
+                <label id="lblCount" runat="server"></label>
             </td>
         </tr>
         
