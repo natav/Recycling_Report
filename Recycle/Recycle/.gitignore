@@ -3,6 +3,8 @@
 
 # Ignore assembly versions
 AssemblyInfo.*
+*.dll
+*.pdb
 
 # User-specific files
 *.suo
