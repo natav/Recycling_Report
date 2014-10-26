@@ -17,7 +17,10 @@ namespace Recycle
         {
             if (IsPostBack)
             {
-                SubmitAddress();
+                if (txtAddress.Value.ToString().Trim().Length != 0)
+                {
+                    SubmitAddress();
+                }
             }
             GetData();
         }

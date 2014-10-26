@@ -53,40 +53,39 @@
     </style>
 </head>
 
-<body onload="initialize()">
+<body onload="initialize()" background="Images/backgrd1.jpg">
 
 <form id="Form1" runat="server">
     <div>
         <table style="text-align: center; width: 1257px;">
              <tr style="align-content:center; width: 100%;">
-                 <td style="text-align: center">.::  banner goes here  ::.</td>
+                 <td style="text-align: center; font-weight: bold; font-size: 36px!important; font-weight: 30px!important; color: #7f7f7f;">Reno Recycles</td>
              </tr>
         </table>
      </div>
 
     <br />
-       
                 <table>
                     <tr>
-                        <td style="width:35%; vertical-align: top;">
+                        <td style="width:35%; vertical-align: top; margin-left: 3px; align-content:center;">
                             <div style="vertical-align: top;">
                                 <table>
                                     <tr>
-                                        <td colspan="2"><label>Report NO recycling in your building</label></td>
+                                        <td colspan="2"><label style="font-weight: bolder">&nbsp;Report NO recycling in your building</label></td>
                                     </tr>
                                     <tr>
-                                        <td><span>Enter your address: </span></td>
+                                        <td><span>&nbsp;Enter your address: </span></td>
                                         <td><input type="text" id="txtAddress" runat="server" name="txtAddress" style="width: 213px" /></td>
                                     </tr>
                                     <tr>
-                                        <td><span>Comment:</span></td>
+                                        <td><span>&nbsp;Comment:</span></td>
                                         <td><textarea class="form-control" name="comment" id="txtComment" runat="server" style="width: 213px"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="align-right">
-                                           <input type="submit" value="Submit" class="btn" runat="server" id="btnSubmit" />
+                                           &nbsp;&nbsp;<input type="submit" value="Submit" class="btn" runat="server" id="btnSubmit" />
                                         </td>
-                                        <td><label runat="server" id="lblMsg" visible="false">Thank you for your submission!</label></td>
+                                        <td><label runat="server" id="lblMsg" visible="false" style="font-weight: bold">Thank you for your submission!</label></td>
                                     </tr>
                                 </table>
                             </div>
@@ -94,7 +93,7 @@
                         <td style="width:65%;">
                             <asp:Literal ID="js" runat="server"></asp:Literal>
                             <div id="map_canvas" style="width: 100%; height: 728px; margin-bottom:2px;"></div>
-                            <label id="lblCount" runat="server"></label>
+                            <label id="lblCount" runat="server" style="font-weight: bold"></label>
                         </td>
                     </tr>
         
