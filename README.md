@@ -1,4 +1,4 @@
-Recycle_Bin
+Recycle_Report
 ===========
 
-Collects data about residential buildings not having recycling bins (Reno, NV)
+Collects data about residential buildings not having recycling bins/container (Reno, NV)
