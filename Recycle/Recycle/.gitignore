@@ -7,6 +7,7 @@ AssemblyInfo.*
 *.pdb
 
 # User-specific files
+*.v12.suo
 *.suo
 *.user
 *.sln.docstates
